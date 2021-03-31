@@ -16,10 +16,8 @@ class Hud
             new Edge(this.canvas.width-5, this.canvas.height/2, 10, this.canvas.height, 'pink'),
         ];
 
-        // Balken aanmaken (gestippelde middellijn)
-        // for(let i=0; i<=22; i++) {
-        //     this.edges.push(new Edge(this.canvas.width/2, 20+(i*20), 10, 10));
-        // }
+        this.mylabel = new Label(this.canvas.width/2, this.canvas.height/2, 10, 'purple', 'easter egg', 'center');
+
 
         // Tekenen van de Headsup-display
         this.draw();
@@ -28,9 +26,18 @@ class Hud
     draw() {
         // Scherm van de Headsup-display leeg maken
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
         // Balken tekenen
-        this.edges.forEach(edge => this.parent.drawRectangle(this.context, edge, edge.color));  
+        const edgeCount = this.edges.length;
+        for(let i=0; i<edgeCount; i++) {
+            const edge = this.edges[i];
+            this.parent.drawRectangle(this.context, edge, edge.color);          
+        }
+
+        // Rectangles tekenen die onderdeel zijn van het Label
+        this.mylabel.rectangles.forEach(rectangle => {
+            this.parent.drawRectangle(this.context, rectangle, this.mylabel.color);    
+        });
+       
     }
 }
 

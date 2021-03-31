@@ -11,7 +11,7 @@ class Game
         // Paaseitjes aanmaken
         this.eggs = [];
         for(let i=0; i<8; i++) {
-            this.eggs.push(new Easteregg(this.canvas.width/2, this.canvas.height/2, (i%8)+1));
+            this.eggs.push(new Easteregg(100, 200, (i%8)+1));
         }
         
         // Keyboard input opvangen voor speler1 (human)
@@ -63,24 +63,25 @@ class Game
 
     draw() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
         const eggCount = this.eggs.length;
         for(let i=0; i<eggCount; i++) {
             let egg = this.eggs[i];
             if(egg.image) {
-                const centrifugalPosition = egg.convertToCentrifugalPosition(egg.position.x-(egg.size.x/2), egg.position.y-(egg.size.y/2), egg.degrees+Easteregg.degrees , Easteregg.distance);
-                this.context.drawImage(egg.image, centrifugalPosition.x, centrifugalPosition.y);
+                const startX = egg.position.x-(egg.size.x/2);
+                const startY = egg.position.y-(egg.size.y/2);
+                //const centrifugalPosition = egg.convertToCentrifugalPosition(startX, startY, egg.degrees+Easteregg.degrees , Easteregg.distance);
+                this.context.drawImage(egg.image, startX, startY);   // centrifugalPosition.x, centrifugalPosition.y
             }
         }
 
-        Easteregg.distance = 100 + (Easteregg.sinus*2);
-        Easteregg.degrees++;
-        
-        
+        // Easteregg.distance = 100 + (Easteregg.sinus*2);
+        // Easteregg.degrees++;
+        // console.log( Easteregg.sinus );
+        // Easteregg.sinus += (Math.PI*2) / 90;
+
 
         
-        console.log( Easteregg.sinus );
-
-        Easteregg.sinus += (Math.PI*2) / 90;
 
     }
 
